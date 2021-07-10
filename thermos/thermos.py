@@ -5,7 +5,10 @@ app = Flask(__name__)
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index.html')
+    return render_template('index.html', title="Title passed from view to template" ,text=["1", "2"])
 
+@app.route('/add')
+def add():
+    return render_template('add.html')
 if __name__ == '__main__':
     app.run(debug=True)
