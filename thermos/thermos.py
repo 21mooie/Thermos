@@ -9,14 +9,19 @@ app.config['SECRET_KEY'] = b"\x1f\xd59d\xfb2N\xc7\x96\x93\xa18#\x99\xe3(\xd4'8%4
 def store_bookmark(url):
     bookmarks.append(dict(
         url = url,
-        user = "reindert",
+        user = "muata",
         date = datetime.utcnow()
     ))
+
+def new_bookmarks(num):
+    return sorted(bookmarks, key=lambda bm: bm['date'], reverse=True)[:num]
 
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index.html', title="Title passed from view to template" ,text=["1", "2"])
+    return render_template('index.html',
+    new_bookmarks=new_bookmarks(5)
+    )
 
 @app.route('/add', methods=['GET', 'POST'])
 def add():
